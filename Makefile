@@ -1,3 +1,6 @@
+serve:
+	gulp serve
+
 install:
 	npm install
 
@@ -6,10 +9,11 @@ remove-git:
 
 git-init:
 	git init
-	git add .
-	git commit -am 'project init'
 
 sprite:
 	gulp makeSprite
+
+build:
+	gulp build
 
 setup: install remove-git git-init
