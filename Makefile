@@ -9,4 +9,7 @@ git-init:
 	git add .
 	git commit -am 'project init'
 
+sprite:
+	gulp makeSprite
+
 setup: install remove-git git-init
