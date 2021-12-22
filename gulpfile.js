@@ -1,3 +1,4 @@
+const { join } = require('path');
 const { src, dest, parallel, watch, series } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const pug = require('gulp-pug');
@@ -17,7 +18,7 @@ const sassAliasesConfig = {
 	'~': './node_modules/'
 };
 
-const jsDependencies = [];
+const jsDependencies = [join(SRC_DIR, 'index.js')];
 
 const svgConfig = {
 	mode: {
@@ -42,24 +43,17 @@ const pugCompile = () => {
 		.pipe(browserSync.stream());
 };
 
-const browserSyncJob = () => {
-	browserSync.init({
-		server: BUILD_DIR
-	});
-
-	watch(paths.SCSS_WATCH, sassCompile);
-	watch(paths.PUG_WATCH, pugCompile);
-};
-
 const imageCompile = () => {
 	return src(paths.IMAGES_DIR)
-		.pipe(dest(paths.IMAGES_BUILD_DIR));
+		.pipe(dest(paths.IMAGES_BUILD_DIR))
+		.pipe(browserSync.stream());
 };
 
 const scriptsCompile = () => {
 	return src(jsDependencies)
 		.pipe(concat('index.js'))
-		.pipe(dest(BUILD_DIR));
+		.pipe(dest(BUILD_DIR))
+		.pipe(browserSync.stream());
 };
 
 const makeSprite = () => {
@@ -72,6 +66,18 @@ const makeSprite = () => {
 const cleanBuild = () => {
 	return src(`${BUILD_DIR}/*`)
 		.pipe(clean());
+};
+
+const browserSyncJob = () => {
+	browserSync.init({
+		server: BUILD_DIR
+	});
+
+	watch(paths.SCSS_WATCH, sassCompile);
+	watch(paths.PUG_WATCH, pugCompile);
+	watch(paths.JS_WATCH, scriptsCompile);
+	watch(paths.SVG_WATCH, makeSprite);
+	watch(paths.IMG_WATCH, imageCompile);
 };
 
 const build = series(cleanBuild, parallel(sassCompile, pugCompile, scriptsCompile, makeSprite, imageCompile));
