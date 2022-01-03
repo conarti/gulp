@@ -7,12 +7,12 @@ const aliases = require('gulp-style-aliases');
 const concat = require('gulp-concat');
 const clean = require('gulp-clean');
 const svgSprite = require('gulp-svg-sprite');
-const getPaths = require('./paths.js');
+const makePaths = require('./paths.js');
 
 const SRC_DIR = 'src';
 const BUILD_DIR = 'build';
 
-const paths = getPaths(SRC_DIR, BUILD_DIR);
+const paths = makePaths(SRC_DIR, BUILD_DIR);
 
 const sassAliasesConfig = {
 	'~': './node_modules/'
@@ -57,7 +57,7 @@ const scriptsCompile = () => {
 };
 
 const makeSprite = () => {
-	return src(paths.SVG)
+	return src(paths.SVG_ENTRY)
 		.pipe(svgSprite(svgConfig))
 		.pipe(dest(BUILD_DIR))
 		.pipe(browserSync.stream());

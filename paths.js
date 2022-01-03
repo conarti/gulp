@@ -4,14 +4,15 @@ const getPaths = (src, build) => {
 	const makePath = (type, path = '') => resolve(__dirname, type, path);
 
 	return {
-		STYLE_BUILD_DIR: makePath(build),
 		SCSS_ENTRY: makePath(src, 'scss/index.scss'),
-		SCSS_WATCH: makePath(src, 'scss/**/*'),
 		PUG_ENTRY: makePath(src, '*.pug'),
-		PUG_WATCH: makePath(src, '**/*.pug'),
-		SVG: makePath(src, 'assets/**/*.svg'),
+		SVG_ENTRY: makePath(src, 'assets/**/*.svg'),
+		JS_ENTRY: makePath(src, 'index.js'),
 		IMAGES_DIR: makePath(src, 'assets/images/**/*'),
+		STYLE_BUILD_DIR: makePath(build),
 		IMAGES_BUILD_DIR: makePath(build, 'images'),
+		SCSS_WATCH: makePath(src, 'scss/**/*'),
+		PUG_WATCH: makePath(src, '**/*.pug'),
 		JS_WATCH: makePath(src, '**/*.js'),
 		SVG_WATCH: makePath(src, 'assets/**/*.svg'),
 		IMG_WATCH: makePath(src, 'assets/images/**/*'),
