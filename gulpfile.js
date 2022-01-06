@@ -1,7 +1,6 @@
 const { join } = require('path');
 const { src, dest, parallel, watch, series } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
-const pug = require('gulp-pug');
 const browserSync = require('browser-sync').create();
 const aliases = require('gulp-style-aliases');
 const concat = require('gulp-concat');
@@ -36,9 +35,8 @@ const sassCompile = () => {
 		.pipe(browserSync.stream());
 };
 
-const pugCompile = () => {
-	return src(paths.PUG_ENTRY)
-		.pipe(pug())
+const htmlCompile = () => {
+	return src(paths.HTML_ENTRY)
 		.pipe(dest(BUILD_DIR))
 		.pipe(browserSync.stream());
 };
@@ -74,13 +72,13 @@ const browserSyncJob = () => {
 	});
 
 	watch(paths.SCSS_WATCH, sassCompile);
-	watch(paths.PUG_WATCH, pugCompile);
+	watch(paths.HTML_WATCH, htmlCompile);
 	watch(paths.JS_WATCH, scriptsCompile);
 	watch(paths.SVG_WATCH, makeSprite);
 	watch(paths.IMG_WATCH, imageCompile);
 };
 
-const build = series(cleanBuild, parallel(sassCompile, pugCompile, scriptsCompile, makeSprite, imageCompile));
+const build = series(cleanBuild, parallel(sassCompile, htmlCompile, scriptsCompile, makeSprite, imageCompile));
 
 exports.default = series(build, browserSyncJob);
 exports.serve = series(build, browserSyncJob);

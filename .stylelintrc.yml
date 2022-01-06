@@ -17,3 +17,5 @@ rules:
   scss/no-global-function-names: null
 ignoreFiles:
   - '**/*.js'
+  - '**/*.html'
+  - './build/**/*'
