@@ -1,5 +1,4 @@
 Gulp template.
-Check branches for get different project variants.
 
 ## Setup project:
 ```shell
