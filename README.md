@@ -1,7 +1,7 @@
-Fully customisable gulp template.
-Check branches if you need additional dependencies like `bootstrap`, `postcss`, etc.
+Gulp template.
+Check branches for get different project variants.
 
-### Setup project:
+## Setup project:
 ```shell
 $ cd path/to/dir # open project folder OR open terminal at project folder and follow next steps
 $ git clone https://github.com/conarti/gulp.git . # clone repository in current folder
@@ -10,7 +10,7 @@ $ make setup # install dependencies -> setup git
 ```
 or use as template.
 
-### Deploy site:
+## Deploy site:
 
 This package uses [surge.sh](https://surge.sh) to deploy projects.
 
