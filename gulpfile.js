@@ -11,6 +11,8 @@ const makePaths = require('./paths.js');
 const SRC_DIR = 'src';
 const BUILD_DIR = 'build';
 
+const isJsCompileEnable = false;
+
 const paths = makePaths(SRC_DIR, BUILD_DIR);
 
 const sassAliasesConfig = {
@@ -78,7 +80,15 @@ const browserSyncJob = () => {
 	watch(paths.IMG_WATCH, imageCompile);
 };
 
-const build = series(cleanBuild, parallel(sassCompile, htmlCompile, scriptsCompile, makeSprite, imageCompile));
+const makeCompileTasks = () => {
+	const tasks = [sassCompile, htmlCompile, makeSprite, imageCompile];
+	if (isJsCompileEnable) {
+		tasks.push(scriptsCompile);
+	}
+	return tasks;
+};
+
+const build = series(cleanBuild, parallel(...makeCompileTasks()));
 
 exports.default = series(build, browserSyncJob);
 exports.serve = series(build, browserSyncJob);
