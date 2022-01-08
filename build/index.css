@@ -27,13 +27,3 @@ a {
 .flex-column {
   flex-direction: column;
 }
-
-.logo {
-  font-weight: 500;
-  letter-spacing: 0.15rem;
-  text-align: center;
-}
-.logo__icon {
-  display: inline;
-  margin-right: 1rem;
-}
