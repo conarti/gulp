@@ -16,7 +16,12 @@ sprite:
 build:
 	gulp build
 
+deploy: build
+	npx surge ./build/
+
 setup: install remove-git git-init
 
 lint:
 	npx stylelint ./src/scss/**/*
+
+.PHONY: build
