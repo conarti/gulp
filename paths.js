@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 
-const getPaths = (src, build) => {
+const make = (src, build) => {
 	const makePath = (type, path = '') => resolve(__dirname, type, path);
 
 	return {
@@ -19,4 +19,4 @@ const getPaths = (src, build) => {
 	};
 };
 
-module.exports = getPaths;
+module.exports = make;
