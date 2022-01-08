@@ -22,6 +22,7 @@ deploy: build
 setup: install remove-git git-init
 
 lint:
+	npx htmlhint ./src/**/*.html
 	npx stylelint ./src/scss/**/*
 
 .PHONY: build
